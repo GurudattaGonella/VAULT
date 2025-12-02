@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAULT | Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>🔐 VAULT</h2>
+                <p>Your Intelligent Study Partner</p>
+            </div>
+            
+            <div class="upload-section">
+                <label for="file-upload" class="custom-file-upload">
+                    📂 Upload New Document
+                </label>
+                <input id="file-upload" type="file" accept=".txt,.pdf,.docx"/>
+                <p id="file-name" class="file-status">No file chosen</p>
+                <button id="process-btn" class="primary-btn" disabled>🚀 Analyze</button>
+            </div>
+
+            <div class="progress-box hidden" id="loading-indicator">
+                <div class="spinner"></div>
+                <p>Reading & Memorizing...</p>
+            </div>
+
+            <div class="history-section">
+                <h3>🕒 Recent Work</h3>
+                <ul id="history-list">
+                    <li class="placeholder-text" style="font-size: 0.8rem;">No recent documents.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: auto;">
+                <a href="/logout" class="logout-btn">🚪 Logout</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab('summary-tab')">📝 Summary</button>
+                <button class="tab-btn" onclick="openTab('quiz-tab')">🧠 Quiz</button>
+                <button class="tab-btn" onclick="openTab('chat-tab')">💬 Chat Tutor</button>
+                <button class="tab-btn" onclick="openTab('video-tab')">📺 Videos</button>
+            </div>
+
+            <div id="summary-tab" class="tab-content active">
+                <div class="card">
+                    <h3>📌 Key Takeaways</h3>
+                    <div id="summary-content" class="content-area">
+                        <p class="placeholder-text">Upload a document or select one from history to view its summary.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quiz-tab" class="tab-content">
+                <div class="card">
+                    <h3>Test Your Knowledge</h3>
+                    
+                    <div class="quiz-controls" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
+                        <label>Difficulty:</label>
+                        <select id="quiz-difficulty" style="padding: 5px; border-radius: 5px; background: var(--bg-dark); color: white; border: 1px solid var(--border);">
+                            <option value="Easy">Easy</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Hard">Hard</option>
+                        </select>
+                        <button id="generate-quiz-btn" class="primary-btn" style="width: auto; padding: 5px 15px;">🔄 Generate New Quiz</button>
+                    </div>
+
+                    <div id="quiz-container">
+                        <p class="placeholder-text">Upload a document to generate a quiz.</p>
+                    </div>
+                    <button id="submit-quiz" class="primary-btn hidden" style="margin-top: 20px;">Submit Answers</button>
+                    <button id="load-more-btn" class="primary-btn hidden" style="width: auto; margin-top: 10px;">Load 10 More Questions</button>
+                </div>
+            </div>
+
+            <div id="chat-tab" class="tab-content">
+                <div class="chat-box" id="chat-box">
+                    <div class="message bot-message">
+                        Hello! Select a document from history or upload a new one to start chatting.
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="user-input" placeholder="Ask a question about your notes...">
+                    <button id="send-btn">➤</button>
+                </div>
+            </div>
+
+            <div id="video-tab" class="tab-content">
+                <h3>Recommended Videos</h3>
+                <div id="video-list" class="video-grid">
+                    <p class="placeholder-text">Upload a document to get recommendations.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>

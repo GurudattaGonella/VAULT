@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAULT | Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #0f1115; }
+        .auth-card { background-color: var(--bg-card); padding: 40px; border-radius: 12px; width: 350px; text-align: center; border: 1px solid var(--border); }
+        .auth-card h2 { color: var(--primary); margin-bottom: 20px; font-size: 1.8rem; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; color: var(--text-light); }
+        .input-group input { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background-color: var(--bg-dark); color: white; }
+        .primary-btn { width: 100%; margin-top: 10px; }
+        .message-box { color: var(--success); margin-top: 15px; font-weight: bold; }
+        .link-text { margin-top: 15px; color: var(--text-gray); font-size: 0.9rem; }
+        .link-text a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <h2>🔐 VAULT Login</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="primary-btn">Login</button>
+            <div id="status-message" class="message-box"></div>
+        </form>
+        <div class="link-text">
+            Don't have an account? <a href="/register">Register here</a>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const statusMessage = document.getElementById('status-message');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            statusMessage.textContent = 'Logging in...';
+            statusMessage.style.color = '#4F46E5';
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    statusMessage.textContent = 'Login successful!';
+                    statusMessage.style.color = '#10B981';
+                    window.location.href = '/'; 
+                } else {
+                    statusMessage.textContent = data.message || 'Login failed.';
+                    statusMessage.style.color = '#EF4444';
+                }
+            } catch (error) {
+                statusMessage.textContent = 'Could not connect to server.';
+                statusMessage.style.color = '#EF4444';
+            }
+        });
+    </script>
+</body>
+</html>

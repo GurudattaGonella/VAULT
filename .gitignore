@@ -1,0 +1,13 @@
+# Ignore the virtual environment
+venv/
+backend/venv/
+
+# Ignore environment secrets
+.env
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+# Force ignore specific secrets
+backend/.env
+*.env
